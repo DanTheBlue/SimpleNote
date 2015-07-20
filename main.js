@@ -13,6 +13,19 @@ marked.setOptions({
   smartLists: true,
   smartypants: false
 });
+var fs = require('fs');
+var cheerio = require('cheerio');
+var $ = cheerio.load(fs.readFileSync('index.html'));
+var ipc = require('ipc');
+var dialog = require('dialog');
+
+ipc.on('save-file', function() {
+	fs.writeFile("/tmp/test", $('#pad').text());
+});
+
+ipc.on('open-file', function() {
+	dialog.showOpenDialog({ properties: [ 'openFile', 'openDirectory', 'multiSelections' ]});
+});
 
 // Report crashes to our server.
 require('crash-reporter').start();
@@ -31,8 +44,6 @@ app.on('window-all-closed', function() {
   }
 });
 
-
-
 // This method will be called when Electron has done everything
 // initialization and ready for creating browser windows.
 app.on('ready', function() {
@@ -40,10 +51,12 @@ app.on('ready', function() {
   mainWindow = new BrowserWindow({width: 1000, height: 600});
 
   // and load the index.html of the app.
-  mainWindow.loadUrl('file://' + __dirname + '/index.html');
+  var file = 'file://' + __dirname + '/index.html';
+  mainWindow.loadUrl(file);
 
   // Open the devtools.
   // mainWindow.openDevTools();
+
 
   // Emitted when the window is closed.
   mainWindow.on('closed', function() {
