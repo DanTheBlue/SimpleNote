@@ -19,8 +19,11 @@ var $ = cheerio.load(fs.readFileSync('index.html'));
 var ipc = require('ipc');
 var dialog = require('dialog');
 
+///usr/local/lib/node_modules/electron-prebuilt/dist/electron
+console.log($('#notename').val());
+
 ipc.on('save-file', function() {
-	fs.writeFile("/tmp/test", $('#pad').text());
+	fs.writeFile($('#notename').val() + '.md', $('#pad').text());
 });
 
 ipc.on('open-file', function() {
