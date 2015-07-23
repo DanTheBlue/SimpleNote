@@ -1,22 +1,28 @@
-<!-- views/pad.ejs -->
-
 <!DOCTYPE html>
 <html>
 <head>
+	<script src="controller.js"></script>
 	<script src="menu.js"></script>
-    <title>Realtime Markdown Viewer</title>
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet">
-    <link href="style.css" rel="stylesheet">
+	<title>Realtime Markdown Viewer</title>
+	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet">
+	<link href="style.css" rel="stylesheet">
 </head>
 
 <body class="container-fluid">
 
-    <section class="row">
-        <textarea class="col-md-6 full-height" id="pad">Write your text here..</textarea>
-        <div class="col-md-6 full-height" id="markdown"></div>
-    </section>
+	<div class="row">
+		<div class="file-data">
+			<input type="text" class="form-control" placeholder="Note Name" name="notename" id="notename">
+		</div>
+	</div>
 
-    <script src="script.js"></script>
+	<section class="row">
+		<div class="col-md-2 full-height well" id="navigation-pane"></div>
+		<textarea class="col-md-5 full-height" id="pad" placeholder="Write your text here..."></textarea>
+		<div class="col-md-5 full-height" id="markdown"></div>
+	</section>
+
+	<script src="script.js"></script>
 
 
 </body>

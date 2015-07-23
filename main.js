@@ -19,20 +19,10 @@ var $ = cheerio.load(fs.readFileSync('index.html'));
 var ipc = require('ipc');
 var dialog = require('dialog');
 
-///usr/local/lib/node_modules/electron-prebuilt/dist/electron
-console.log($('#notename').val());
-
-ipc.on('save-file', function() {
-	fs.writeFile($('#notename').val() + '.md', $('#pad').text());
-});
-
-ipc.on('open-file', function() {
-	dialog.showOpenDialog({ properties: [ 'openFile', 'openDirectory', 'multiSelections' ]});
-});
-
 // Report crashes to our server.
 require('crash-reporter').start();
 
+///usr/local/lib/node_modules/electron-prebuilt/dist/electron path-to-your-app
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the javascript object is GCed.
@@ -60,7 +50,6 @@ app.on('ready', function() {
   // Open the devtools.
   // mainWindow.openDevTools();
 
-
   // Emitted when the window is closed.
   mainWindow.on('closed', function() {
     // Dereference the window object, usually you would store windows
@@ -70,3 +59,13 @@ app.on('ready', function() {
   });
 });
 
+
+//Menu options
+ipc.on('save-file', function(event, file) {
+	fs.writeFile(file.fileName + '.md', file.data);
+  //fs.writeFile("test" + '.md', "#Hello");
+});
+
+ipc.on('open-file', function() {
+	dialog.showOpenDialog({ properties: [ 'openFile', 'openDirectory', 'multiSelections' ]});
+});

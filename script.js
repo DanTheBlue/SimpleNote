@@ -3,7 +3,7 @@
 window.onload = function() {
     //var converter = new showdown.Converter();
     var marked = require('marked');
-    marked.setOptions({
+    marked.setOptions({ 
         renderer: new marked.Renderer(),
         gfm: true,
         tables: true,
@@ -15,7 +15,8 @@ window.onload = function() {
     });
     
     var pad = document.getElementById('pad');
-    var markdownArea = document.getElementById('markdown');   
+    var markdownArea = document.getElementById('markdown');
+
 
     var convertTextAreaToMarkdown = function(){
         var markdownText = pad.value;
