@@ -16,16 +16,18 @@ window.onload = function() {
     
     var pad = document.getElementById('pad');
     var markdownArea = document.getElementById('markdown');
+    var noteName = document.getElementById("notename");
 
 
     var convertTextAreaToMarkdown = function(){
         var markdownText = pad.value;
-        //var html = (marked(markdownText.toString()));
-        var html = marked(markdownText);
+        var title = "#" + (document.getElementById('notename')).value + "\n" + "---------------" + "\n";
+        var html = marked(title + markdownText);
         markdownArea.innerHTML = html;
     };
 
     pad.addEventListener('input', convertTextAreaToMarkdown);
+    noteName.addEventListener('input', convertTextAreaToMarkdown);
 
     convertTextAreaToMarkdown();
 };
