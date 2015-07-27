@@ -48,7 +48,7 @@ app.on('ready', function() {
   mainWindow.loadUrl(file);
 
   // Open the devtools.
-   mainWindow.openDevTools();
+  mainWindow.openDevTools();
 
   // Emitted when the window is closed.
   mainWindow.on('closed', function() {
@@ -66,6 +66,19 @@ ipc.on('save-file', function(event, file) {
   //fs.writeFile("test" + '.md', "#Hello");
 });
 
-ipc.on('open-file', function() {
-	dialog.showOpenDialog({ properties: [ 'openFile', 'openDirectory', 'multiSelections' ]});
+ipc.on('open-file', function(event) {
+	//dialog.showOpenDialog({ properties: [ 'openFile', 'openDirectory', 'multiSelections' ]});
+  //event.sender.send('recieve-file', 'pong');
+  dialog.showOpenDialog(function (fileNames) {
+    if (fileNames === undefined) return;
+    var fileName = fileNames[0];
+    fs.readFile(fileName, 'utf-8', function (err, data) {
+      var file = {
+        "filePath": fileName,
+        "data": data
+
+      };
+      event.sender.send('recieve-file', file);
+    });
+  }); 
 });

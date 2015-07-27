@@ -15,6 +15,9 @@ var template = [
       {
         label: 'Open',
         accelerator: 'Command+O',
+        click: function() {
+          loadFile();
+        }
       }
     ]
   },
