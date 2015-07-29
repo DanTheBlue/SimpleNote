@@ -7,14 +7,14 @@ var template = [
     submenu: [
       {
         label: 'Save',
-        accelerator: 'Command+S',
+        accelerator: 'CmdOrCtrl+S',
         click: function() {
           saveFile();
         }
       },
       {
         label: 'Open',
-        accelerator: 'Command+O',
+        accelerator: 'CmdOrCtrl+O',
         click: function() {
           loadFile();
         }

@@ -14,6 +14,9 @@ marked.setOptions({
 var fs = require('fs');
 var ipc = require('ipc');
 var dialog = require('dialog');
+var settings = require('./settings.json');
+var File = require('./file.js');
+
 
 // Report crashes to our server.
 require('crash-reporter').start();
@@ -66,12 +69,8 @@ ipc.on('open-file', function(event) {
     if (fileNames === undefined) return;
     var fileName = fileNames[0];
     fs.readFile(fileName, 'utf-8', function (err, data) {
-      var file = {
-        "filePath": fileName,
-        "data": data
-
-      };
-      event.sender.send('recieve-file', file);
+      var newFile = new File(fileName, data, null);
+      event.sender.send('recieve-file', newFile);
     });
   }); 
 });

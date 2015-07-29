@@ -1,13 +1,17 @@
 var ipc = require('ipc');
 var path = require('path');
+var File = require('./file.js');
+var settings = require('./settings.json');
+
+var currentFile;
 
 var saveFile = function(){
 	//Get the data to call the filesave
-	var file = {
-		fileName : document.getElementById("notename").value,
-		data : document.getElementById("pad").value
-	}
-	ipc.sendSync('save-file', file);
+	var fileName = document.getElementById("notename").value;
+	var data = document.getElementById("pad").value;
+	currentFile = new File(settings.directories.save + fileName + '.md', data, null);
+	
+	ipc.sendSync('save-file', currentFile);
 }
 
 function loadFile() {
@@ -16,7 +20,6 @@ function loadFile() {
 
 ipc.on('recieve-file', function(file) {
 	//Strip out the full file path to get the filename, and remove the extension
-	var fileName = path.basename(file.filePath, ".md");
-	document.getElementById("notename").value = fileName; 
+	document.getElementById("notename").value = file.name; 
 	document.getElementById("pad").value = file.data;
 });
