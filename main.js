@@ -1,5 +1,3 @@
-var express = require('express');
-var app = express();
 var app = require('app');  // Module to control application life.
 var BrowserWindow = require('browser-window');  // Module to create native browser window.
 var marked = require('marked');
@@ -14,8 +12,6 @@ marked.setOptions({
   smartypants: false
 });
 var fs = require('fs');
-var cheerio = require('cheerio');
-var $ = cheerio.load(fs.readFileSync('index.html'));
 var ipc = require('ipc');
 var dialog = require('dialog');
 
@@ -63,12 +59,9 @@ app.on('ready', function() {
 //Menu options
 ipc.on('save-file', function(event, file) {
 	fs.writeFile(file.fileName + '.md', file.data);
-  //fs.writeFile("test" + '.md', "#Hello");
 });
 
 ipc.on('open-file', function(event) {
-	//dialog.showOpenDialog({ properties: [ 'openFile', 'openDirectory', 'multiSelections' ]});
-  //event.sender.send('recieve-file', 'pong');
   dialog.showOpenDialog(function (fileNames) {
     if (fileNames === undefined) return;
     var fileName = fileNames[0];
