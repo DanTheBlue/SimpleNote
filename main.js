@@ -16,6 +16,8 @@ var ipc = require('ipc');
 var dialog = require('dialog');
 var settings = require('./settings.json');
 var File = require('./file.js');
+var mkdirp = require('mkdirp');
+
 
 
 // Report crashes to our server.
@@ -59,9 +61,29 @@ app.on('ready', function() {
 });
 
 
+function makeFolder(path) {
+  mkdirp(path, function(err) {
+    if(err) {
+      console.log("Cant make folder! " + path);
+      console.log(err);
+      return false;
+    }
+  });
+  return true;
+}
+
+function getSaveDirectory(file) {
+  if(file.path == '') {
+    file.path = app.getPath('home') + '/' + settings.directories.root + '/' + file.notebook + '/' + file.name + file.extension;
+  }
+  return file.path;
+}
+
 //Menu options
 ipc.on('save-file', function(event, file) {
-	fs.writeFile(file.fileName + '.md', file.data);
+  makeFolder(getSaveDirectory(file));
+	//fs.writeFile(file.path + '/' + file.name + file.extension, file.data);
+  fs.writeFile(getSaveDirectory(file), file.data);
 });
 
 ipc.on('open-file', function(event) {

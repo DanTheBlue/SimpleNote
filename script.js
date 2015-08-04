@@ -20,6 +20,7 @@ window.onload = function() {
 
 
     var convertTextAreaToMarkdown = function(){
+        //allert the controller the file may have been changed
         var markdownText = pad.value;
         var title = "#" + (document.getElementById('notename')).value + "\n" + "---------------" + "\n";
         var html = marked(title + markdownText);
