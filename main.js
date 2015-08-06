@@ -1,16 +1,5 @@
 var app = require('app');  // Module to control application life.
 var BrowserWindow = require('browser-window');  // Module to create native browser window.
-var marked = require('marked');
-marked.setOptions({
-  renderer: new marked.Renderer(),
-  gfm: true,
-  tables: true,
-  breaks: false,
-  pedantic: false,
-  sanitize: true,
-  smartLists: true,
-  smartypants: false
-});
 var fs = require('fs');
 var ipc = require('ipc');
 var dialog = require('dialog');
@@ -74,7 +63,7 @@ function makeFolder(path) {
 
 function getSaveDirectory(file) {
   if(file.path == '') {
-    file.path = app.getPath('home') + '/' + settings.directories.root + '/' + file.notebook + '/' + file.name + file.extension;
+    file.path = app.getPath('home') + '/' + settings.directories.root + '/' + file.notebook + '/';
   }
   return file.path;
 }
@@ -83,7 +72,7 @@ function getSaveDirectory(file) {
 ipc.on('save-file', function(event, file) {
   makeFolder(getSaveDirectory(file));
 	//fs.writeFile(file.path + '/' + file.name + file.extension, file.data);
-  fs.writeFile(getSaveDirectory(file), file.data);
+  fs.writeFile(getSaveDirectory(file) + file.name + file.extension, file.data);
 });
 
 ipc.on('open-file', function(event) {

@@ -2,6 +2,8 @@
 
 window.onload = function() {
     //var converter = new showdown.Converter();
+    var highlighter = require('highlight.js');
+    highlighter.initHighlightingOnLoad();
     var marked = require('marked');
     marked.setOptions({ 
         renderer: new marked.Renderer(),
@@ -11,8 +13,12 @@ window.onload = function() {
         pedantic: false,
         sanitize: true,
         smartLists: true,
-        smartypants: false
+        smartypants: false,
+        highlight: function (code, lang) {
+            return highlighter.highlightAuto(code).value;
+        }
     });
+
     
     var pad = document.getElementById('pad');
     var markdownArea = document.getElementById('markdown');
