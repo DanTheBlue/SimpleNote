@@ -5,7 +5,7 @@ SimpleNote is a note taking app that makes use of markdown. The idea of simpleno
 ##Features/Focus
 * A note taking application that uses markdown
 * Saves notes in pure markdown, so the user is NOT tied to the editor
-* Provides notebooks which are mimicked by the file system, so users can easily export data
+* Provides notebooks which mimick the file system, so users can easily export data and keep their structure
 * Provides mechanisms for syncing to cloud services, be it through saving the notebooks in specific directories and providing some support for git
 * Works on every major OS (OSX, Windows, Linux) - _Using electron for this_
 
