@@ -15,7 +15,8 @@ window.onload = function() {
         smartLists: true,
         smartypants: false,
         highlight: function (code, lang) {
-            return highlighter.highlightAuto(code).value;
+            var theLang = [lang];
+            return highlighter.highlightAuto(code, theLang).value;
         }
     });
 
