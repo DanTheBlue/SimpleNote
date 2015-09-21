@@ -4,8 +4,9 @@ function File(filePath, data, notebook) {
 	var parsed = path.parse(filePath);
 
 	this.name = parsed['name'];
-	/*Fix for the path being null.
-	* If this check isnt perform, the nme is appended with null
+	/*
+	* Fix for the path being null.
+	* If this check isnt performed, the name is appended with null
 	*/
 	if(this.name.substring(0, 4) == "null") {
 		this.name = this.name.substring(4, this.name.length);

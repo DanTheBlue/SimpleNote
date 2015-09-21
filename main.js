@@ -12,8 +12,6 @@ var mkdirp = require('mkdirp');
 // Report crashes to our server.
 require('crash-reporter').start();
 
-///usr/local/lib/node_modules/electron-prebuilt/dist/electron path-to-your-app
-
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the javascript object is GCed.
 var mainWindow = null;
@@ -62,17 +60,27 @@ function makeFolder(path) {
 }
 
 function getSaveDirectory(file) {
-  if(file.path == '') {
+  if(file.path === '') {
     file.path = app.getPath('home') + '/' + settings.directories.root + '/' + file.notebook + '/';
   }
   return file.path;
 }
 
+
+function getDefaultSaveDir() {
+  app.getPath('home') + 'SimpleNote/';
+}
+
 //Menu options
 ipc.on('save-file', function(event, file) {
   makeFolder(getSaveDirectory(file));
-	//fs.writeFile(file.path + '/' + file.name + file.extension, file.data);
   fs.writeFile(getSaveDirectory(file) + file.name + file.extension, file.data);
+});
+
+
+ipc.on('new-file', function(event) {
+  file = new File('', '', null);
+  event.sender.send('recieve-file', file);
 });
 
 ipc.on('open-file', function(event) {

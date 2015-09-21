@@ -1,4 +1,4 @@
-/* public/script.js */
+var $ = require("./node_modules/jquery/dist/jquery.js");
 
 window.onload = function() {
     //var converter = new showdown.Converter();
@@ -29,7 +29,7 @@ window.onload = function() {
     var convertTextAreaToMarkdown = function(){
         //allert the controller the file may have been changed
         var markdownText = pad.value;
-        var title = "#" + (document.getElementById('notename')).value + "\n" + "---------------" + "\n";
+        var title = (document.getElementById('notename')).value + "\n" + "---------------" + "\n";
         var html = marked(title + markdownText);
         markdownArea.innerHTML = html;
     };

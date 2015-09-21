@@ -6,6 +6,12 @@ var template = [
     label: 'File',
     submenu: [
       {
+        label : "New",
+        click : function() {
+          newFile();
+        }
+      },
+      {
         label: 'Save',
         accelerator: 'CmdOrCtrl+S',
         click: function() {

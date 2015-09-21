@@ -18,6 +18,10 @@ function loadFile() {
 	ipc.sendSync('open-file');
 }
 
+function newFile() {
+	ipc.sendSync('new-file');
+}
+
 ipc.on('recieve-file', function(file) {
 	//Strip out the full file path to get the filename, and remove the extension
 	document.getElementById("notename").value = file.name; 
